@@ -9,9 +9,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/test)
-
 enable_testing()
+
+add_subdirectory(${PROJECT_SOURCE_DIR}/test)
 
 
 find_program(CLANG_TIDY_BIN clang-tidy-6.0)
