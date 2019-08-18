@@ -1,0 +1,132 @@
+#ifndef INTEGRAL_SWITCH_H_
+#define INTEGRAL_SWITCH_H_
+
+#include <type_traits>
+
+namespace integral_switch{
+
+#if defined(__cpp_constexpr) && __cpp_constexpr >= 201304
+#define USE_CPP_14_CONSTEXPR
+#endif
+
+namespace detail{
+    template<typename...>
+    struct integral_switch_impl; // undefined
+
+    template<>
+    struct integral_switch_impl<>
+    {
+        template<typename Ret, typename Visitor, typename T>
+        static Ret dispatch(Visitor&& visitor, T&& value)
+        {
+            throw std::invalid_argument("value");
+        }
+
+
+        template<typename Ret, typename Visitor, typename T, typename U>
+        #ifdef USE_CPP_14_CONSTEXPR
+        static constexpr Ret dispatch_nothrow(Visitor&& visitor, T&& value, U&& default_ret)
+        #else
+        static Ret dispatch_nothrow(Visitor&& visitor, T&& value, U&& default_ret)
+        #endif
+        {
+            return std::forward<U>(default_ret);
+        }
+    };
+
+    {% for height in range(number) -%}
+    template<{{ ", ".join(formatRange(range(height + 1), "typename IHead{}")) }}>
+    struct integral_switch_impl<{{ ", ".join(formatRange(range(height + 1), "IHead{}")) }}>
+    {
+        template<typename Ret, typename Visitor, typename T>
+        static Ret dispatch(Visitor&& visitor, T&& value)
+        {
+            switch(value)
+            {
+                {% for i in range(height + 1) -%}
+                case {{ "IHead{}::value".format(i) }}: return std::forward<Visitor>(visitor)({{ "IHead{}".format(i) }}{});
+                {% endfor -%}
+                default: return integral_switch_impl<>::template dispatch<Ret>(std::forward<Visitor>(visitor), std::forward<T>(value));
+            }
+        }
+
+        template<typename Ret, typename Visitor, typename T, typename U>
+        #ifdef USE_CPP_14_CONSTEXPR
+        static constexpr Ret dispatch_nothrow(Visitor&& visitor, T&& value, U&& default_ret)
+        #else
+        static Ret dispatch_nothrow(Visitor&& visitor, T&& value, U&& default_ret)
+        #endif
+        {
+            switch(value)
+            {
+                {% for i in range(height + 1) -%}
+                case {{ "IHead{}::value".format(i) }}: return std::forward<Visitor>(visitor)({{ "IHead{}".format(i) }}{});
+                {% endfor -%}
+                default: return integral_switch_impl<>::template dispatch_nothrow<Ret>(std::forward<Visitor>(visitor), std::forward<T>(value), std::forward<U>(default_ret));
+            }
+        }
+    };
+
+    {% endfor -%}
+
+    template<{{ ", ".join(formatRange(range(number), "typename IHead{}")) }}, typename... ITail>
+    struct integral_switch_impl<{{ ", ".join(formatRange(range(number), "IHead{}")) }}, ITail...>
+    {
+        template<typename Ret, typename Visitor, typename T>
+        static Ret dispatch(Visitor&& visitor, T&& value)
+        {
+            switch(value)
+            {
+                {% for i in range(number) -%}
+                case {{ "IHead{}::value".format(i) }}: return std::forward<Visitor>(visitor)({{ "IHead{}".format(i) }}{});
+                {% endfor -%}
+                default: return integral_switch_impl<ITail...>::template dispatch<Ret>(std::forward<Visitor>(visitor), std::forward<T>(value));
+            }
+        }
+
+        template<typename Ret, typename Visitor, typename T, typename U>
+        #ifdef USE_CPP_14_CONSTEXPR
+        static constexpr Ret dispatch_nothrow(Visitor&& visitor, T&& value, U&& default_ret)
+        #else
+        static Ret dispatch_nothrow(Visitor&& visitor, T&& value, U&& default_ret)
+        #endif
+        {
+            switch(value)
+            {
+                {% for i in range(number) -%}
+                case {{ "IHead{}::value".format(i) }}: return std::forward<Visitor>(visitor)({{ "IHead{}".format(i) }}{});
+                {% endfor -%}
+                default: return integral_switch_impl<ITail...>::template dispatch_nothrow<Ret>(std::forward<Visitor>(visitor), std::forward<T>(value), std::forward<U>(default_ret));
+            }
+        }
+    };
+
+
+}
+
+template<typename T, T... v>
+struct integral_switch
+{
+    template<typename Visitor>
+    using return_type = typename std::common_type<decltype(std::declval<Visitor>()(std::integral_constant<T, v>{}))...>::type;
+
+    template<typename Visitor, typename U>
+    static return_type<Visitor> visit(Visitor&& visitor, U&& value)
+    {
+        return detail::integral_switch_impl<std::integral_constant<T, v>...>::template dispatch<return_type<Visitor>>(std::forward<Visitor>(visitor), std::forward<U>(value));
+    }
+
+    template<typename Visitor, typename U, typename R>
+    #ifdef USE_CPP_14_CONSTEXPR
+    static constexpr return_type<Visitor> visit_nothrow(Visitor&& visitor, U&& value, R&& default_ret)
+    #else
+    static return_type<Visitor> visit_nothrow(Visitor&& visitor, U&& value, R&& default_ret)
+    #endif
+    {
+        return detail::integral_switch_impl<std::integral_constant<T, v>...>::template dispatch_nothrow<return_type<Visitor>>(std::forward<Visitor>(visitor), std::forward<U>(value), std::forward<R>(default_ret));
+    }
+};
+
+}
+
+#endif

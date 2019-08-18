@@ -32,6 +32,11 @@ TEST(simple_test, genericlambda) // NOLINT
     ASSERT_EQ(10, foo_switch::visit(visitor, 0));
     ASSERT_EQ(20, foo_switch::visit(visitor, 1));
     ASSERT_EQ(30, foo_switch::visit(visitor, 2));
+    ASSERT_THROW(foo_switch::visit(visitor, 3), std::invalid_argument);
+    ASSERT_EQ(10, foo_switch::visit_nothrow(visitor, 0, -1));
+    ASSERT_EQ(20, foo_switch::visit_nothrow(visitor, 1, -1));
+    ASSERT_EQ(30, foo_switch::visit_nothrow(visitor, 2, -1));
+    ASSERT_EQ(-1, foo_switch::visit_nothrow(visitor, 3, -1));
 }
 
 #endif
@@ -61,6 +66,23 @@ TEST(simple_test, calloperator) // NOLINT
     ASSERT_EQ(10, foo_switch::visit(visitor, 0));
     ASSERT_EQ(20, foo_switch::visit(visitor, 1));
     ASSERT_EQ(30, foo_switch::visit(visitor, 2));
+    ASSERT_THROW(foo_switch::visit(visitor, 3), std::invalid_argument);
+    ASSERT_EQ(10, foo_switch::visit_nothrow(visitor, 0, -1));
+    ASSERT_EQ(20, foo_switch::visit_nothrow(visitor, 1, -1));
+    ASSERT_EQ(30, foo_switch::visit_nothrow(visitor, 2, -1));
+    ASSERT_EQ(-1, foo_switch::visit_nothrow(visitor, 3, -1));
 }
+
+#ifdef USE_CPP_14_CONSTEXPR
+TEST(simple_test, staticassert) // NOLINT
+{
+    using foo_switch = integral_switch<int, 0, 1, 2>;
+    Visitor visitor;
+    static_assert(foo_switch::visit_nothrow(visitor, 0, -1) == 10, "");
+    static_assert(foo_switch::visit_nothrow(visitor, 1, -1) == 20, "");
+    static_assert(foo_switch::visit_nothrow(visitor, 2, -1) == 30, "");
+    static_assert(foo_switch::visit_nothrow(visitor, 3, -1) == -1, "");
+}
+#endif
 
 }
