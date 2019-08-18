@@ -17,11 +17,11 @@ struct integral_switch
         switch(value)
         {
             case 0:
-                return visitor(std::integral_constant<T, 0>{});
+                return std::forward<Visitor>(visitor)(std::integral_constant<T, 0>{});
             case 1:
-                return visitor(std::integral_constant<T, 1>{});
+                return std::forward<Visitor>(visitor)(std::integral_constant<T, 1>{});
             case 2:
-                return visitor(std::integral_constant<T, 2>{});
+                return std::forward<Visitor>(visitor)(std::integral_constant<T, 2>{});
         }
 
         throw std::invalid_argument("value");
