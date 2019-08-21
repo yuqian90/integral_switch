@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.7.0)
-project(integral_switch)
+
+project(integral_switch VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_FLAGS "-Wall -Werror -fdiagnostics-color=always")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3")
@@ -15,25 +16,23 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/test)
 
 
 find_program(CLANG_TIDY_BIN clang-tidy-6.0)
-find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-6.0.py)
+find_program(CLANG_FORMAT_BIN clang-format-6.0)
 
 if(CLANG_TIDY_BIN STREQUAL "CLANG_TIDY_BIN-NOTFOUND")
     message(FATAL_ERROR "unable to locate clang-tidy-6.0")
 endif()
 
-if(RUN_CLANG_TIDY_BIN STREQUAL "RUN_CLANG_TIDY_BIN-NOTFOUND")
-    message(FATAL_ERROR "unable to locate run-clang-tidy-6.0.py")
+if(CLANG_FORMAT_BIN STREQUAL "CLANG_FORMAT_BIN-NOTFOUND")
+    message(FATAL_ERROR "unable to locate clang-format-6.0")
 endif()
 
-list(APPEND RUN_CLANG_TIDY_BIN_ARGS
-    -clang-tidy-binary ${CLANG_TIDY_BIN}
-        "^${PROJECT_SOURCE_DIR}/test/[^/]+.cpp"
-)
+list(APPEND LINT_COMMAND
+     ${PROJECT_SOURCE_DIR}/script/lint.py --clangtidybin ${CLANG_TIDY_BIN} --build-path ${PROJECT_BINARY_DIR} --clangformatbin ${CLANG_FORMAT_BIN} "${PROJECT_SOURCE_DIR}/include/*.h" "${PROJECT_SOURCE_DIR}/test/*.cpp")
 
-message("${RUN_CLANG_TIDY_BIN_ARGS}")
+message("${LINT_COMMAND}")
 add_custom_target(
-    tidy
-    COMMAND ${RUN_CLANG_TIDY_BIN} ${RUN_CLANG_TIDY_BIN_ARGS}
-    COMMENT "running clang tidy"
+    lint
+    COMMAND ${LINT_COMMAND}
+    COMMENT "Running lint.py"
 )
 

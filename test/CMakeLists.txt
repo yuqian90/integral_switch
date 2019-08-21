@@ -6,5 +6,5 @@ add_subdirectory(extern/benchmark)
 add_subdirectory(extern/googletest)
 
 add_executable(simple_test simple_test.cpp)
-target_link_libraries(simple_test gtest_main pthread)
+target_link_libraries(simple_test PRIVATE gtest_main pthread)
 add_test(NAME simple_test COMMAND ${PROJECT_BINARY_DIR}/test/simple_test)

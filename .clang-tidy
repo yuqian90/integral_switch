@@ -1,0 +1,5 @@
+---
+Checks:          '*,-readability-named-parameter,-fuchsia-overloaded-operator'
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*.h'
+...

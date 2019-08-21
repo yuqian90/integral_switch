@@ -17,7 +17,7 @@ namespace detail{
     struct integral_switch_impl<>
     {
         template<typename Ret, typename Visitor, typename T>
-        static Ret dispatch(Visitor&& visitor, T&& value)
+        static Ret dispatch(Visitor&&, T&&)
         {
             throw std::invalid_argument("value");
         }
@@ -25,9 +25,9 @@ namespace detail{
 
         template<typename Ret, typename Visitor, typename T, typename U>
         #ifdef USE_CPP_14_CONSTEXPR
-        static constexpr Ret dispatch_nothrow(Visitor&& visitor, T&& value, U&& default_ret)
+        static constexpr Ret dispatch_nothrow(Visitor&&, T&&, U&& default_ret)
         #else
-        static Ret dispatch_nothrow(Visitor&& visitor, T&& value, U&& default_ret)
+        static Ret dispatch_nothrow(Visitor&&, T&&, U&& default_ret)
         #endif
         {
             return std::forward<U>(default_ret);
