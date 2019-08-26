@@ -1,13 +1,11 @@
-# integral_switch
-integral_switch can be used to dispatch a visitor to the right static type based on a runtime integral value. The performance is comparable to that of a hand-rolled switch-case statement.
-
-Example usage:
-
-```
+#include <gtest/gtest.h>
 #include <iostream>
+#include <string>
 #include <type_traits>
 
 #include "integral_switch.h"
+
+namespace integral_switch {
 
 using foo_switch = integral_switch<int, 0, 1, 2>;
 
@@ -25,11 +23,17 @@ struct Visitor {
     }
 };
 
-int main()
+TEST(example_test, example) // NOLINT
 {
     Visitor visitor;
-
-    for (int i = 0; i <= 2; ++i)
+    testing::internal::CaptureStdout();
+    for (int i = 0; i <= 2; ++i) {
         foo_switch::visit(visitor, i);
+    }
+    std::string output = testing::internal::GetCapturedStdout();
+    ASSERT_EQ(output, "0: std::integral_constant<int, 0>\n"
+                      "1: std::integral_constant<int, 1>\n"
+                      "2: std::integral_constant<int, 2>\n");
 }
-```
+
+} // namespace integral_switch
