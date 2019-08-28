@@ -82,15 +82,17 @@ TEST(switch_test, genericlambda_nothrow) // NOLINT
     ASSERT_EQ(67, switch_::visit_nothrow(visitor, 67, -1));
     ASSERT_EQ(-1, switch_::visit_nothrow(visitor, 68, -1));
 }
+#endif
 
+#ifdef USE_CPP_14_CONSTEXPR
 TEST(switch_test, staticassert) // NOLINT
 {
     Visitor visitor;
-    static_assert(switch_::visit_nothrow(visitor, 0, -1) == 0, "");
-    static_assert(switch_::visit_nothrow(visitor, 32, -1) == 32, "");
-    static_assert(switch_::visit_nothrow(visitor, 64, -1) == 64, "");
-    static_assert(switch_::visit_nothrow(visitor, 67, -1) == 67, "");
-    static_assert(switch_::visit_nothrow(visitor, 68, -1) == -1, "");
+    static_assert(switch_::visit_nothrow(visitor, 0, -1) == static_cast<std::size_t>(0), "");
+    static_assert(switch_::visit_nothrow(visitor, 32, -1) == static_cast<std::size_t>(32), "");
+    static_assert(switch_::visit_nothrow(visitor, 64, -1) == static_cast<std::size_t>(64), "");
+    static_assert(switch_::visit_nothrow(visitor, 67, -1) == static_cast<std::size_t>(67), "");
+    static_assert(switch_::visit_nothrow(visitor, 68, -1) == static_cast<std::size_t>(-1), "");
 }
 #endif
 

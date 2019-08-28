@@ -29,25 +29,27 @@ enable_testing()
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/test)
 
+option(INTEGRAL_SWITCH_LINT "Do lint" OFF)
+if(INTEGRAL_SWITCH_LINT)
+    find_program(CLANG_TIDY_BIN clang-tidy-6.0)
+    find_program(CLANG_FORMAT_BIN clang-format-6.0)
 
-find_program(CLANG_TIDY_BIN clang-tidy-6.0)
-find_program(CLANG_FORMAT_BIN clang-format-6.0)
+    if(CLANG_TIDY_BIN STREQUAL "CLANG_TIDY_BIN-NOTFOUND")
+        message(FATAL_ERROR "unable to locate clang-tidy-6.0")
+    endif()
 
-if(CLANG_TIDY_BIN STREQUAL "CLANG_TIDY_BIN-NOTFOUND")
-    message(FATAL_ERROR "unable to locate clang-tidy-6.0")
+    if(CLANG_FORMAT_BIN STREQUAL "CLANG_FORMAT_BIN-NOTFOUND")
+        message(FATAL_ERROR "unable to locate clang-format-6.0")
+    endif()
+
+    list(APPEND LINT_COMMAND
+        ${PROJECT_SOURCE_DIR}/script/lint.py --clangtidybin ${CLANG_TIDY_BIN} --build-path ${PROJECT_BINARY_DIR} --clangformatbin ${CLANG_FORMAT_BIN} "${PROJECT_SOURCE_DIR}/include/*.h" "${PROJECT_SOURCE_DIR}/test/*.cpp")
+
+    message("${LINT_COMMAND}")
+    add_custom_target(
+        lint
+        COMMAND ${LINT_COMMAND}
+        COMMENT "Running lint.py"
+    )
 endif()
-
-if(CLANG_FORMAT_BIN STREQUAL "CLANG_FORMAT_BIN-NOTFOUND")
-    message(FATAL_ERROR "unable to locate clang-format-6.0")
-endif()
-
-list(APPEND LINT_COMMAND
-     ${PROJECT_SOURCE_DIR}/script/lint.py --clangtidybin ${CLANG_TIDY_BIN} --build-path ${PROJECT_BINARY_DIR} --clangformatbin ${CLANG_FORMAT_BIN} "${PROJECT_SOURCE_DIR}/include/*.h" "${PROJECT_SOURCE_DIR}/test/*.cpp")
-
-message("${LINT_COMMAND}")
-add_custom_target(
-    lint
-    COMMAND ${LINT_COMMAND}
-    COMMENT "Running lint.py"
-)
 

@@ -19,6 +19,7 @@
 #ifndef INTEGRAL_SWITCH_H_
 #define INTEGRAL_SWITCH_H_
 
+#include <tuple>
 #include <type_traits>
 
 namespace integral_switch{
@@ -28,6 +29,15 @@ namespace integral_switch{
 #endif
 
 namespace detail{
+
+    // Some helper utilities
+    template <bool... Bs> struct bool_sequence {};
+
+    template <bool... Is>
+    using all = std::is_same<bool_sequence<true, Is...>, bool_sequence<Is..., true>>;
+
+    template <typename... Ts> using first_t = typename std::tuple_element<0, std::tuple<Ts...>>::type;
+
     template<typename...>
     struct integral_switch_impl; // undefined
 
@@ -125,12 +135,28 @@ namespace detail{
 template<typename T, T... v>
 struct integral_switch
 {
-    template<typename Visitor>
-    using return_type = typename std::common_type<decltype(std::declval<Visitor>()(std::integral_constant<T, v>{}))...>::type;
+    template <typename Visitor, typename U>
+    using return_type_of = decltype(std::declval<Visitor>()(std::declval<U>()));
+
+    template <typename Visitor>
+    using return_type = return_type_of<Visitor, detail::first_t<std::integral_constant<T, v>...>>;
+
+    template <typename Visitor> struct check_return_type {
+        using expected_type = return_type<Visitor>;
+
+        template <T u> using actual_type = return_type_of<Visitor, std::integral_constant<T, u>>;
+
+        static constexpr bool check() {
+            static_assert(detail::all<std::is_same<expected_type, actual_type<v>>::value...>::value,
+                          "All return types must be equal");
+            return true;
+        }
+    };
 
     template<typename Visitor, typename U>
     static return_type<Visitor> visit(Visitor&& visitor, U&& value)
     {
+        check_return_type<Visitor>::check();
         return detail::integral_switch_impl<std::integral_constant<T, v>...>::template dispatch<return_type<Visitor>>(std::forward<Visitor>(visitor), std::forward<U>(value));
     }
 
@@ -141,6 +167,7 @@ struct integral_switch
     static return_type<Visitor> visit_nothrow(Visitor&& visitor, U&& value, R&& default_ret)
     #endif
     {
+        check_return_type<Visitor>::check();
         return detail::integral_switch_impl<std::integral_constant<T, v>...>::template dispatch_nothrow<return_type<Visitor>>(std::forward<Visitor>(visitor), std::forward<U>(value), std::forward<R>(default_ret));
     }
 };
