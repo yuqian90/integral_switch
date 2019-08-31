@@ -41,14 +41,14 @@ struct Visitor {
     }
 };
 
-TEST(example_test, example) // NOLINT
-{
+TEST(example_test, example) {
     Visitor visitor;
     testing::internal::CaptureStdout();
     for (int i = 0; i <= 2; ++i) {
         foo_switch::visit(visitor, i);
     }
     std::string output = testing::internal::GetCapturedStdout();
+
     ASSERT_EQ(output, "0: std::integral_constant<int, 0>\n"
                       "1: std::integral_constant<int, 1>\n"
                       "2: std::integral_constant<int, 2>\n");

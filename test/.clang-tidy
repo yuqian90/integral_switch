@@ -1,0 +1,5 @@
+---
+Checks:          '*,-readability-named-parameter,-fuchsia-overloaded-operator,-fuchsia-default-arguments,-cppcoreguidelines-pro-type-vararg,-hicpp-vararg,-hicpp-special-member-functions,-cppcoreguidelines-special-member-functions,-cppcoreguidelines-owning-memory,-cert-err58-cpp'
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*.h'
+...
