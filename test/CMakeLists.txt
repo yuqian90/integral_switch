@@ -13,17 +13,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-SET(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Do not build google benchmark tests")
-SET(gtest_build_tests OFF CACHE BOOL "Do not build gtest tests")
+set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Do not build google benchmark tests")
+set(gtest_build_tests OFF CACHE BOOL "Do not build gtest tests")
 
 #google-benchmark/google-test dependencies
-add_subdirectory(extern/benchmark)
-add_subdirectory(extern/googletest)
+add_subdirectory(extern/benchmark extern/benchmark EXCLUDE_FROM_ALL)
+add_subdirectory(extern/googletest extern/googletest EXCLUDE_FROM_ALL)
 
-add_executable(example_test example_test.cpp)
-target_link_libraries(example_test PRIVATE gtest_main pthread)
-add_test(NAME example_test COMMAND ${PROJECT_BINARY_DIR}/test/example_test)
+macro(add_integral_switch_test TESTNAME)
+    add_executable(${TESTNAME} ${ARGN})
+    target_link_libraries(${TESTNAME} PRIVATE gtest_main pthread integral_switch)
+    add_test(NAME ${TESTNAME} COMMAND ${TESTNAME})
+    set_target_properties(${TESTNAME} PROPERTIES FOLDER test)
+endmacro()
 
-add_executable(switch_test switch_test.cpp)
-target_link_libraries(switch_test PRIVATE gtest_main pthread)
-add_test(NAME switch_test COMMAND ${PROJECT_BINARY_DIR}/test/switch_test)
+add_integral_switch_test(example_test example_test.cpp)
+
+add_integral_switch_test(switch_test switch_test.cpp)

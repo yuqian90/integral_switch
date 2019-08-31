@@ -15,19 +15,19 @@
 
 cmake_minimum_required(VERSION 3.7.0)
 
-project(integral_switch VERSION 0.1 LANGUAGES CXX)
+project(integral_switch VERSION 0.1.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_FLAGS "-Wall -Werror -fdiagnostics-color=always")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3")
+if(CMAKE_PROJECT_NAME STREQUAL "integral_switch")
+    set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+    option(INTEGRAL_SWITCH_ENABLE_TESTING "Build integral_switch tests" ON)
+else()
+    option(INTEGRAL_SWITCH_ENABLE_TESTING "Build integral_switch tests" OFF)
+endif()
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-
-include_directories(${PROJECT_SOURCE_DIR}/include)
-
-enable_testing()
-
-add_subdirectory(${PROJECT_SOURCE_DIR}/test)
+if(INTEGRAL_SWITCH_ENABLE_TESTING)
+    enable_testing()
+    add_subdirectory(${PROJECT_SOURCE_DIR}/test)
+endif()
 
 option(INTEGRAL_SWITCH_LINT "Do lint" OFF)
 if(INTEGRAL_SWITCH_LINT)
@@ -45,7 +45,6 @@ if(INTEGRAL_SWITCH_LINT)
     list(APPEND LINT_COMMAND
         ${PROJECT_SOURCE_DIR}/script/lint.py --clangtidybin ${CLANG_TIDY_BIN} --build-path ${PROJECT_BINARY_DIR} --clangformatbin ${CLANG_FORMAT_BIN} "${PROJECT_SOURCE_DIR}/include/*.h" "${PROJECT_SOURCE_DIR}/test/*.cpp")
 
-    message("${LINT_COMMAND}")
     add_custom_target(
         lint
         COMMAND ${LINT_COMMAND}
@@ -53,3 +52,39 @@ if(INTEGRAL_SWITCH_LINT)
     )
 endif()
 
+add_library(integral_switch INTERFACE)
+target_include_directories(integral_switch INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+
+# Export and install
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+    integral_switch-config-version.cmake
+    VERSION ${PACKAGE_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)
+
+export(
+    TARGETS integral_switch NAMESPACE integral_switch::
+    FILE integral_switch-targets.cmake
+)
+
+install(TARGETS integral_switch EXPORT integral_switch INCLUDES DESTINATION include)
+
+install(
+    EXPORT integral_switch
+    FILE integral_switch-targets.cmake
+    NAMESPACE integral_switch::
+    DESTINATION lib/cmake/integral_switch
+)
+
+install(DIRECTORY include DESTINATION include)
+
+configure_file(integral_switch-config.cmake.in integral_switch-config.cmake @ONLY)
+install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/integral_switch-config.cmake"
+          "${CMAKE_CURRENT_BINARY_DIR}/integral_switch-config-version.cmake"
+    DESTINATION lib/cmake/integral_switch
+)
