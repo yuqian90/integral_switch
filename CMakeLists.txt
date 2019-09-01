@@ -24,6 +24,12 @@ else()
     option(INTEGRAL_SWITCH_ENABLE_TESTING "Build integral_switch tests" OFF)
 endif()
 
+option(INTEGRAL_SWITCH_PERF "Enable perf flags" OFF)
+if(INTEGRAL_SWITCH_PERF)
+    set(CMAKE_CXX_FLAGS "-fno-omit-frame-pointer")
+    link_libraries(profiler)
+endif()
+
 if(INTEGRAL_SWITCH_ENABLE_TESTING)
     enable_testing()
     add_subdirectory(${PROJECT_SOURCE_DIR}/test)

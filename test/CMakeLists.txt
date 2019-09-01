@@ -30,3 +30,12 @@ endmacro()
 add_integral_switch_test(example_test example_test.cpp)
 
 add_integral_switch_test(switch_test switch_test.cpp)
+
+add_integral_switch_test(serializer_example serializer_example.cpp)
+
+if(INTEGRAL_SWITCH_PERF)
+    add_executable(switch_benchmark switch_benchmark.cpp)
+    target_link_libraries(switch_benchmark PRIVATE benchmark_main integral_switch)
+    add_test(NAME switch_benchmark COMMAND switch_benchmark)
+    set_target_properties(switch_benchmark PROPERTIES FOLDER test)
+endif()

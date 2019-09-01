@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-A helper tool for creating integral_switch.h.
+A helper tool for creating integral_switch.h. This tool is only needed for development of
+integral_switch. It's not needed for projects using integral_switch.
 
 Copyright (C) 2019  Qian Yu
 
@@ -38,7 +39,7 @@ def clangFormat(bin, input):
 
 
 if __name__ == "__main__":
-    cmd = argparse.ArgumentParser(__doc__)
+    cmd = argparse.ArgumentParser(description=__doc__)
     cmd.add_argument(
         "number",
         nargs="?",
@@ -46,13 +47,20 @@ if __name__ == "__main__":
         default=32,
         help="The height of the switch case statement",
     )
+    choices = ["integral_switch.tmpl", "switch_benchmark.tmpl"]
     cmd.add_argument(
-        "--clangformatbin", required=True, help="Path to clang-format binary"
+        "--template",
+        choices=choices,
+        default=choices[0],
+        help="File name of jinja template",
+    )
+    cmd.add_argument(
+        "--clangformatbin", default="clang-format", help="Path to clang-format binary"
     )
     args = cmd.parse_args()
     dirname = os.path.dirname(__file__)
     env = Environment(loader=FileSystemLoader(dirname))
-    template = env.get_template("integral_switch.tmpl")
+    template = env.get_template(args.template)
 
     def formatRange(rng, fmt):
         for i in rng:

@@ -25,7 +25,7 @@ import subprocess
 import difflib
 
 if __name__ == "__main__":
-    cmd = argparse.ArgumentParser(__doc__)
+    cmd = argparse.ArgumentParser(description=__doc__)
     cmd.add_argument("--clangtidybin", required=True, help="Path to clang-tidy binary")
     cmd.add_argument(
         "--build-path", required=True, help="Directory containing compile_commands.json"

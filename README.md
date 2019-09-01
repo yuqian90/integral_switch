@@ -11,7 +11,7 @@
 - No macro magic
 - No extra dependencies
 - Single-header
-- As fast as switch-case statements
+- As fast as switch-case statements. See [benchmark](./script/benchmark.md)
 - Continuously tested against several versions of [__clang/gcc/xcode__](https://travis-ci.com/yuqian90/integral_switch) for __C++11__/__14__/__17__
 
 Example usage:
