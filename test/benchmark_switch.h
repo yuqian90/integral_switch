@@ -1,5 +1,5 @@
 /*
- * switch_benchmark.h Used for benchmarking.
+ * benchmark_switch.h Used for benchmarking.
  * Copyright (C) 2019  Qian Yu
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,17 +16,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <cstddef>
+#ifndef BENCHMARK_SWITCH_H_
+#define BENCHMARK_SWITCH_H_
 
-#ifndef SWITCH_BENCHMARK_H_
-#define SWITCH_BENCHMARK_H_
+#include <cstddef>
 
 namespace integral_switch {
 
 template <std::size_t N>
 static inline constexpr std::size_t switch_case_get(std::size_t value) noexcept;
 
-template <> inline constexpr std::size_t switch_case_get<1>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<1>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<1>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -35,7 +41,13 @@ template <> inline constexpr std::size_t switch_case_get<1>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<2>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<2>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<2>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -46,7 +58,13 @@ template <> inline constexpr std::size_t switch_case_get<2>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<3>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<3>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<3>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -59,7 +77,13 @@ template <> inline constexpr std::size_t switch_case_get<3>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<4>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<4>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<4>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -74,7 +98,13 @@ template <> inline constexpr std::size_t switch_case_get<4>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<5>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<5>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<5>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -91,7 +121,13 @@ template <> inline constexpr std::size_t switch_case_get<5>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<6>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<6>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<6>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -110,7 +146,13 @@ template <> inline constexpr std::size_t switch_case_get<6>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<7>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<7>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<7>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -131,7 +173,13 @@ template <> inline constexpr std::size_t switch_case_get<7>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<8>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<8>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<8>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -154,7 +202,13 @@ template <> inline constexpr std::size_t switch_case_get<8>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<9>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<9>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<9>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -179,7 +233,13 @@ template <> inline constexpr std::size_t switch_case_get<9>(std::size_t value) n
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<10>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<10>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<10>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -206,7 +266,13 @@ template <> inline constexpr std::size_t switch_case_get<10>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<11>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<11>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<11>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -235,7 +301,13 @@ template <> inline constexpr std::size_t switch_case_get<11>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<12>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<12>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<12>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -266,7 +338,13 @@ template <> inline constexpr std::size_t switch_case_get<12>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<13>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<13>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<13>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -299,7 +377,13 @@ template <> inline constexpr std::size_t switch_case_get<13>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<14>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<14>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<14>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -334,7 +418,13 @@ template <> inline constexpr std::size_t switch_case_get<14>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<15>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<15>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<15>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -371,7 +461,13 @@ template <> inline constexpr std::size_t switch_case_get<15>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<16>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<16>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<16>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -410,7 +506,13 @@ template <> inline constexpr std::size_t switch_case_get<16>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<17>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<17>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<17>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -451,7 +553,13 @@ template <> inline constexpr std::size_t switch_case_get<17>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<18>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<18>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<18>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -494,7 +602,13 @@ template <> inline constexpr std::size_t switch_case_get<18>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<19>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<19>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<19>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -539,7 +653,13 @@ template <> inline constexpr std::size_t switch_case_get<19>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<20>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<20>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<20>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -586,7 +706,13 @@ template <> inline constexpr std::size_t switch_case_get<20>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<21>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<21>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<21>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -635,7 +761,13 @@ template <> inline constexpr std::size_t switch_case_get<21>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<22>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<22>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<22>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -686,7 +818,13 @@ template <> inline constexpr std::size_t switch_case_get<22>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<23>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<23>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<23>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -739,7 +877,13 @@ template <> inline constexpr std::size_t switch_case_get<23>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<24>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<24>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<24>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -794,7 +938,13 @@ template <> inline constexpr std::size_t switch_case_get<24>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<25>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<25>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<25>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -851,7 +1001,13 @@ template <> inline constexpr std::size_t switch_case_get<25>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<26>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<26>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<26>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -910,7 +1066,13 @@ template <> inline constexpr std::size_t switch_case_get<26>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<27>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<27>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<27>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -971,7 +1133,13 @@ template <> inline constexpr std::size_t switch_case_get<27>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<28>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<28>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<28>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1034,7 +1202,13 @@ template <> inline constexpr std::size_t switch_case_get<28>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<29>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<29>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<29>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1099,7 +1273,13 @@ template <> inline constexpr std::size_t switch_case_get<29>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<30>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<30>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<30>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1166,7 +1346,13 @@ template <> inline constexpr std::size_t switch_case_get<30>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<31>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<31>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<31>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1235,7 +1421,13 @@ template <> inline constexpr std::size_t switch_case_get<31>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<32>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<32>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<32>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1306,7 +1498,13 @@ template <> inline constexpr std::size_t switch_case_get<32>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<33>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<33>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<33>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1379,7 +1577,13 @@ template <> inline constexpr std::size_t switch_case_get<33>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<34>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<34>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<34>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1454,7 +1658,13 @@ template <> inline constexpr std::size_t switch_case_get<34>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<35>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<35>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<35>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1531,7 +1741,13 @@ template <> inline constexpr std::size_t switch_case_get<35>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<36>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<36>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<36>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1610,7 +1826,13 @@ template <> inline constexpr std::size_t switch_case_get<36>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<37>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<37>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<37>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1691,7 +1913,13 @@ template <> inline constexpr std::size_t switch_case_get<37>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<38>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<38>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<38>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1774,7 +2002,13 @@ template <> inline constexpr std::size_t switch_case_get<38>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<39>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<39>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<39>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1859,7 +2093,13 @@ template <> inline constexpr std::size_t switch_case_get<39>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<40>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<40>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<40>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -1946,7 +2186,13 @@ template <> inline constexpr std::size_t switch_case_get<40>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<41>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<41>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<41>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2035,7 +2281,13 @@ template <> inline constexpr std::size_t switch_case_get<41>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<42>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<42>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<42>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2126,7 +2378,13 @@ template <> inline constexpr std::size_t switch_case_get<42>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<43>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<43>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<43>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2219,7 +2477,13 @@ template <> inline constexpr std::size_t switch_case_get<43>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<44>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<44>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<44>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2314,7 +2578,13 @@ template <> inline constexpr std::size_t switch_case_get<44>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<45>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<45>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<45>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2411,7 +2681,13 @@ template <> inline constexpr std::size_t switch_case_get<45>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<46>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<46>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<46>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2510,7 +2786,13 @@ template <> inline constexpr std::size_t switch_case_get<46>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<47>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<47>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<47>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2611,7 +2893,13 @@ template <> inline constexpr std::size_t switch_case_get<47>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<48>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<48>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<48>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2714,7 +3002,13 @@ template <> inline constexpr std::size_t switch_case_get<48>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<49>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<49>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<49>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2819,7 +3113,13 @@ template <> inline constexpr std::size_t switch_case_get<49>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<50>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<50>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<50>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -2926,7 +3226,13 @@ template <> inline constexpr std::size_t switch_case_get<50>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<51>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<51>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<51>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3035,7 +3341,13 @@ template <> inline constexpr std::size_t switch_case_get<51>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<52>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<52>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<52>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3146,7 +3458,13 @@ template <> inline constexpr std::size_t switch_case_get<52>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<53>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<53>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<53>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3259,7 +3577,13 @@ template <> inline constexpr std::size_t switch_case_get<53>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<54>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<54>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<54>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3374,7 +3698,13 @@ template <> inline constexpr std::size_t switch_case_get<54>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<55>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<55>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<55>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3491,7 +3821,13 @@ template <> inline constexpr std::size_t switch_case_get<55>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<56>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<56>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<56>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3610,7 +3946,13 @@ template <> inline constexpr std::size_t switch_case_get<56>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<57>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<57>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<57>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3731,7 +4073,13 @@ template <> inline constexpr std::size_t switch_case_get<57>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<58>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<58>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<58>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3854,7 +4202,13 @@ template <> inline constexpr std::size_t switch_case_get<58>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<59>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<59>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<59>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -3979,7 +4333,13 @@ template <> inline constexpr std::size_t switch_case_get<59>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<60>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<60>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<60>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -4106,7 +4466,13 @@ template <> inline constexpr std::size_t switch_case_get<60>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<61>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<61>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<61>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -4235,7 +4601,13 @@ template <> inline constexpr std::size_t switch_case_get<61>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<62>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<62>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<62>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -4366,7 +4738,13 @@ template <> inline constexpr std::size_t switch_case_get<62>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<63>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<63>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<63>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -4499,7 +4877,13 @@ template <> inline constexpr std::size_t switch_case_get<63>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<64>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<64>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<64>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -4634,7 +5018,13 @@ template <> inline constexpr std::size_t switch_case_get<64>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<65>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<65>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<65>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -4771,7 +5161,13 @@ template <> inline constexpr std::size_t switch_case_get<65>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<66>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<66>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<66>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -4910,7 +5306,13 @@ template <> inline constexpr std::size_t switch_case_get<66>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<67>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<67>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<67>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -5051,7 +5453,13 @@ template <> inline constexpr std::size_t switch_case_get<67>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<68>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<68>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<68>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -5194,7 +5602,13 @@ template <> inline constexpr std::size_t switch_case_get<68>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<69>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<69>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<69>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -5339,7 +5753,13 @@ template <> inline constexpr std::size_t switch_case_get<69>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<70>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<70>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<70>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -5486,7 +5906,13 @@ template <> inline constexpr std::size_t switch_case_get<70>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<71>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<71>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<71>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -5635,7 +6061,13 @@ template <> inline constexpr std::size_t switch_case_get<71>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<72>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<72>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<72>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -5786,7 +6218,13 @@ template <> inline constexpr std::size_t switch_case_get<72>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<73>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<73>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<73>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -5939,7 +6377,13 @@ template <> inline constexpr std::size_t switch_case_get<73>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<74>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<74>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<74>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -6094,7 +6538,13 @@ template <> inline constexpr std::size_t switch_case_get<74>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<75>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<75>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<75>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -6251,7 +6701,13 @@ template <> inline constexpr std::size_t switch_case_get<75>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<76>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<76>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<76>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -6410,7 +6866,13 @@ template <> inline constexpr std::size_t switch_case_get<76>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<77>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<77>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<77>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -6571,7 +7033,13 @@ template <> inline constexpr std::size_t switch_case_get<77>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<78>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<78>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<78>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -6734,7 +7202,13 @@ template <> inline constexpr std::size_t switch_case_get<78>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<79>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<79>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<79>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -6899,7 +7373,13 @@ template <> inline constexpr std::size_t switch_case_get<79>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<80>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<80>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<80>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -7066,7 +7546,13 @@ template <> inline constexpr std::size_t switch_case_get<80>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<81>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<81>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<81>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -7235,7 +7721,13 @@ template <> inline constexpr std::size_t switch_case_get<81>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<82>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<82>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<82>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -7406,7 +7898,13 @@ template <> inline constexpr std::size_t switch_case_get<82>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<83>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<83>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<83>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -7579,7 +8077,13 @@ template <> inline constexpr std::size_t switch_case_get<83>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<84>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<84>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<84>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -7754,7 +8258,13 @@ template <> inline constexpr std::size_t switch_case_get<84>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<85>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<85>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<85>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -7931,7 +8441,13 @@ template <> inline constexpr std::size_t switch_case_get<85>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<86>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<86>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<86>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -8110,7 +8626,13 @@ template <> inline constexpr std::size_t switch_case_get<86>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<87>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<87>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<87>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -8291,7 +8813,13 @@ template <> inline constexpr std::size_t switch_case_get<87>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<88>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<88>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<88>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -8474,7 +9002,13 @@ template <> inline constexpr std::size_t switch_case_get<88>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<89>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<89>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<89>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -8659,7 +9193,13 @@ template <> inline constexpr std::size_t switch_case_get<89>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<90>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<90>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<90>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -8846,7 +9386,13 @@ template <> inline constexpr std::size_t switch_case_get<90>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<91>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<91>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<91>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -9035,7 +9581,13 @@ template <> inline constexpr std::size_t switch_case_get<91>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<92>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<92>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<92>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -9226,7 +9778,13 @@ template <> inline constexpr std::size_t switch_case_get<92>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<93>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<93>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<93>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -9419,7 +9977,13 @@ template <> inline constexpr std::size_t switch_case_get<93>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<94>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<94>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<94>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -9614,7 +10178,13 @@ template <> inline constexpr std::size_t switch_case_get<94>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<95>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<95>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<95>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -9811,7 +10381,13 @@ template <> inline constexpr std::size_t switch_case_get<95>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<96>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<96>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<96>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -10010,7 +10586,13 @@ template <> inline constexpr std::size_t switch_case_get<96>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<97>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<97>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<97>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -10211,7 +10793,13 @@ template <> inline constexpr std::size_t switch_case_get<97>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<98>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<98>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<98>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -10414,7 +11002,13 @@ template <> inline constexpr std::size_t switch_case_get<98>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<99>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<99>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<99>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -10619,7 +11213,13 @@ template <> inline constexpr std::size_t switch_case_get<99>(std::size_t value) 
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<100>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<100>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<100>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -10826,7 +11426,13 @@ template <> inline constexpr std::size_t switch_case_get<100>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<101>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<101>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<101>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -11035,7 +11641,13 @@ template <> inline constexpr std::size_t switch_case_get<101>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<102>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<102>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<102>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -11246,7 +11858,13 @@ template <> inline constexpr std::size_t switch_case_get<102>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<103>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<103>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<103>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -11459,7 +12077,13 @@ template <> inline constexpr std::size_t switch_case_get<103>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<104>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<104>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<104>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -11674,7 +12298,13 @@ template <> inline constexpr std::size_t switch_case_get<104>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<105>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<105>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<105>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -11891,7 +12521,13 @@ template <> inline constexpr std::size_t switch_case_get<105>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<106>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<106>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<106>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -12110,7 +12746,13 @@ template <> inline constexpr std::size_t switch_case_get<106>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<107>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<107>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<107>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -12331,7 +12973,13 @@ template <> inline constexpr std::size_t switch_case_get<107>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<108>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<108>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<108>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -12554,7 +13202,13 @@ template <> inline constexpr std::size_t switch_case_get<108>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<109>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<109>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<109>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -12779,7 +13433,13 @@ template <> inline constexpr std::size_t switch_case_get<109>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<110>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<110>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<110>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -13006,7 +13666,13 @@ template <> inline constexpr std::size_t switch_case_get<110>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<111>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<111>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<111>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -13235,7 +13901,13 @@ template <> inline constexpr std::size_t switch_case_get<111>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<112>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<112>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<112>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -13466,7 +14138,13 @@ template <> inline constexpr std::size_t switch_case_get<112>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<113>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<113>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<113>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -13699,7 +14377,13 @@ template <> inline constexpr std::size_t switch_case_get<113>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<114>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<114>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<114>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -13934,7 +14618,13 @@ template <> inline constexpr std::size_t switch_case_get<114>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<115>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<115>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<115>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -14171,7 +14861,13 @@ template <> inline constexpr std::size_t switch_case_get<115>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<116>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<116>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<116>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -14410,7 +15106,13 @@ template <> inline constexpr std::size_t switch_case_get<116>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<117>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<117>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<117>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -14651,7 +15353,13 @@ template <> inline constexpr std::size_t switch_case_get<117>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<118>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<118>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<118>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -14894,7 +15602,13 @@ template <> inline constexpr std::size_t switch_case_get<118>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<119>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<119>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<119>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -15139,7 +15853,13 @@ template <> inline constexpr std::size_t switch_case_get<119>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<120>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<120>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<120>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -15386,7 +16106,13 @@ template <> inline constexpr std::size_t switch_case_get<120>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<121>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<121>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<121>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -15635,7 +16361,13 @@ template <> inline constexpr std::size_t switch_case_get<121>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<122>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<122>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<122>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -15886,7 +16618,13 @@ template <> inline constexpr std::size_t switch_case_get<122>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<123>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<123>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<123>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -16139,7 +16877,13 @@ template <> inline constexpr std::size_t switch_case_get<123>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<124>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<124>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<124>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -16394,7 +17138,13 @@ template <> inline constexpr std::size_t switch_case_get<124>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<125>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<125>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<125>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -16651,7 +17401,13 @@ template <> inline constexpr std::size_t switch_case_get<125>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<126>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<126>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<126>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -16910,7 +17666,13 @@ template <> inline constexpr std::size_t switch_case_get<126>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<127>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<127>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<127>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -17171,7 +17933,13 @@ template <> inline constexpr std::size_t switch_case_get<127>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<128>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<128>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<128>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -17434,7 +18202,13 @@ template <> inline constexpr std::size_t switch_case_get<128>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<129>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<129>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<129>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -17699,7 +18473,13 @@ template <> inline constexpr std::size_t switch_case_get<129>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<130>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<130>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<130>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -17966,7 +18746,13 @@ template <> inline constexpr std::size_t switch_case_get<130>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<131>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<131>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<131>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -18235,7 +19021,13 @@ template <> inline constexpr std::size_t switch_case_get<131>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<132>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<132>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<132>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -18506,7 +19298,13 @@ template <> inline constexpr std::size_t switch_case_get<132>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<133>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<133>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<133>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -18779,7 +19577,13 @@ template <> inline constexpr std::size_t switch_case_get<133>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<134>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<134>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<134>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -19054,7 +19858,13 @@ template <> inline constexpr std::size_t switch_case_get<134>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<135>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<135>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<135>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -19331,7 +20141,13 @@ template <> inline constexpr std::size_t switch_case_get<135>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<136>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<136>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<136>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -19610,7 +20426,13 @@ template <> inline constexpr std::size_t switch_case_get<136>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<137>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<137>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<137>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -19891,7 +20713,13 @@ template <> inline constexpr std::size_t switch_case_get<137>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<138>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<138>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<138>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -20174,7 +21002,13 @@ template <> inline constexpr std::size_t switch_case_get<138>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<139>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<139>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<139>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -20459,7 +21293,13 @@ template <> inline constexpr std::size_t switch_case_get<139>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<140>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<140>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<140>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -20746,7 +21586,13 @@ template <> inline constexpr std::size_t switch_case_get<140>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<141>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<141>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<141>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -21035,7 +21881,13 @@ template <> inline constexpr std::size_t switch_case_get<141>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<142>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<142>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<142>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -21326,7 +22178,13 @@ template <> inline constexpr std::size_t switch_case_get<142>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<143>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<143>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<143>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -21619,7 +22477,13 @@ template <> inline constexpr std::size_t switch_case_get<143>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<144>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<144>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<144>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -21914,7 +22778,13 @@ template <> inline constexpr std::size_t switch_case_get<144>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<145>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<145>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<145>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -22211,7 +23081,13 @@ template <> inline constexpr std::size_t switch_case_get<145>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<146>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<146>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<146>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -22510,7 +23386,13 @@ template <> inline constexpr std::size_t switch_case_get<146>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<147>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<147>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<147>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -22811,7 +23693,13 @@ template <> inline constexpr std::size_t switch_case_get<147>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<148>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<148>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<148>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -23114,7 +24002,13 @@ template <> inline constexpr std::size_t switch_case_get<148>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<149>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<149>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<149>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;
@@ -23419,7 +24313,13 @@ template <> inline constexpr std::size_t switch_case_get<149>(std::size_t value)
     }
 }
 
-template <> inline constexpr std::size_t switch_case_get<150>(std::size_t value) noexcept {
+template <>
+#ifdef USE_CPP_14_CONSTEXPR
+inline constexpr std::size_t switch_case_get<150>(std::size_t value) noexcept
+#else
+inline std::size_t switch_case_get<150>(std::size_t value) noexcept
+#endif
+{
     switch (value) {
     case 0:
         return 0;

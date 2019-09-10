@@ -1,5 +1,5 @@
 /*
- * switch_benchmark.cpp
+ * benchmark_switch.cpp
  * Copyright (C) 2019  Qian Yu
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,18 +20,18 @@
 #include <utility>
 #include <vector>
 
+#include "benchmark_switch.h"
 #include "integral_switch.h"
-#include "switch_benchmark.h"
 
 namespace integral_switch {
 
 template <std::size_t I> using size_constant = std::integral_constant<std::size_t, I>;
 
-template <std::size_t... Is> std::vector<size_t> make_ids(std::index_sequence<Is...>) {
+template <std::size_t... Is> std::vector<size_t> make_ids(detail::index_sequence<Is...>) {
     std::vector<std::size_t> vs;
 
     for (std::size_t i = 0; i < 5000 / sizeof...(Is); ++i) {
-        int dummy[] = {{(vs.push_back(Is), 0)}...};
+        int dummy[] = {(vs.push_back(Is), 0)...};
         (void)dummy;
     }
 
@@ -44,12 +44,12 @@ struct Visitor1 {
 
 template <typename> struct MakeSwitch;
 
-template <std::size_t... Is> struct MakeSwitch<std::index_sequence<Is...>> {
+template <std::size_t... Is> struct MakeSwitch<detail::index_sequence<Is...>> {
     using type = integral_switch<std::size_t, Is...>;
 };
 
 template <std::size_t N> static void integral_switch_visit_nothrow(benchmark::State &state) {
-    using Seq = std::make_index_sequence<N>;
+    using Seq = detail::make_index_sequence<N>;
 
     auto ids = make_ids(Seq{});
 
@@ -59,24 +59,24 @@ template <std::size_t N> static void integral_switch_visit_nothrow(benchmark::St
         std::size_t sum = 0;
         using Switch = typename MakeSwitch<Seq>::type;
 
-        for (const auto i : ids)
+        for (const auto i : ids) {
             sum += Switch::visit_nothrow(visitor1, i, 0);
+        }
         benchmark::DoNotOptimize(sum);
     }
 }
 
 template <std::size_t N> static void switch_case_visit_nothrow(benchmark::State &state) {
-    using Seq = std::make_index_sequence<N>;
+    using Seq = detail::make_index_sequence<N>;
 
     auto ids = make_ids(Seq{});
 
     for (auto _ : state) {
         std::size_t sum = 0;
 
-        using Switch = typename MakeSwitch<Seq>::type;
-
-        for (const auto i : ids)
+        for (const auto i : ids) {
             sum += switch_case_get<N>(i);
+        }
         benchmark::DoNotOptimize(sum);
     }
 }

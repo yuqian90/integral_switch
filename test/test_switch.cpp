@@ -1,5 +1,5 @@
 /*
- * switch_test.cpp
+ * test_switch.cpp
  * Copyright (C) 2019  Qian Yu
  *
  * This program is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ using switch_ =
                     39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
                     59, 60, 61, 62, 63, 64, 65, 66, 67>;
 
-TEST(switch_test, visit) {
+TEST(test_switch, visit) {
 
     Visitor visitor;
 
@@ -46,7 +46,7 @@ TEST(switch_test, visit) {
     ASSERT_THROW(switch_::visit(visitor, 68), std::invalid_argument);
 }
 
-TEST(switch_test, visit_nothrow) {
+TEST(test_switch, visit_nothrow) {
 
     Visitor visitor;
 
@@ -61,7 +61,7 @@ template <std::size_t I> constexpr int visit(size_constant<I>) { return I; }
 
 #if __cpp_generic_lambdas
 
-TEST(switch_test, genericlambda) {
+TEST(test_switch, genericlambda) {
     auto visitor = [](auto arg) { return visit(arg); };
     ASSERT_EQ(0, switch_::visit(visitor, 0));
     ASSERT_EQ(32, switch_::visit(visitor, 32));
@@ -70,7 +70,7 @@ TEST(switch_test, genericlambda) {
     ASSERT_THROW(switch_::visit(visitor, 68), std::invalid_argument);
 }
 
-TEST(switch_test, genericlambda_nothrow) {
+TEST(test_switch, genericlambda_nothrow) {
     auto visitor = [](auto arg) { return visit(arg); };
     ASSERT_EQ(0, switch_::visit_nothrow(visitor, 0, -1));
     ASSERT_EQ(32, switch_::visit_nothrow(visitor, 32, -1));
@@ -81,7 +81,7 @@ TEST(switch_test, genericlambda_nothrow) {
 #endif
 
 #ifdef USE_CPP_14_CONSTEXPR
-TEST(switch_test, staticassert) {
+TEST(test_switch, staticassert) {
     Visitor visitor;
     static_assert(switch_::visit_nothrow(visitor, 0, -1) == static_cast<std::size_t>(0), "");
     static_assert(switch_::visit_nothrow(visitor, 32, -1) == static_cast<std::size_t>(32), "");

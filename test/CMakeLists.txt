@@ -27,15 +27,15 @@ macro(add_integral_switch_test TESTNAME)
     set_target_properties(${TESTNAME} PROPERTIES FOLDER test)
 endmacro()
 
-add_integral_switch_test(example_test example_test.cpp)
+add_integral_switch_test(test_example test_example.cpp)
 
-add_integral_switch_test(switch_test switch_test.cpp)
+add_integral_switch_test(test_switch test_switch.cpp)
 
-add_integral_switch_test(serializer_example serializer_example.cpp)
+add_integral_switch_test(test_dispatch test_dispatch.cpp)
 
-if(INTEGRAL_SWITCH_PERF)
-    add_executable(switch_benchmark switch_benchmark.cpp)
-    target_link_libraries(switch_benchmark PRIVATE benchmark_main integral_switch)
-    add_test(NAME switch_benchmark COMMAND switch_benchmark)
-    set_target_properties(switch_benchmark PROPERTIES FOLDER test)
-endif()
+add_integral_switch_test(test_serializer_example test_serializer_example.cpp)
+
+add_executable(benchmark_switch benchmark_switch.cpp)
+target_link_libraries(benchmark_switch PRIVATE benchmark_main integral_switch)
+add_test(NAME benchmark_switch COMMAND benchmark_switch)
+set_target_properties(benchmark_switch PROPERTIES FOLDER test)

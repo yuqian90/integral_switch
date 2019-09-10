@@ -28,6 +28,10 @@ namespace integral_switch{
 #define USE_CPP_14_CONSTEXPR
 #endif
 
+#if defined(__cpp_lib_integer_sequence)
+#define USE_CPP_14_INTEGER_SEQUENCE
+#endif
+
 #ifndef __has_attribute
 #define __has_attribute(x) 0
 #endif
@@ -40,6 +44,7 @@ namespace integral_switch{
 #define INTEGRAL_SWITCH_ALWAYS_INLINE inline
 #endif
 
+template <typename T> struct type {};
 
 namespace detail{
 
@@ -50,6 +55,51 @@ namespace detail{
     using all = std::is_same<bool_sequence<true, Is...>, bool_sequence<Is..., true>>;
 
     template <typename... Ts> using first_t = typename std::tuple_element<0, std::tuple<Ts...>>::type;
+
+    // make_index_sequence copied from boost with fixes for make_index_sequence.
+    #ifdef USE_CPP_14_INTEGER_SEQUENCE
+    template <std::size_t... I> using index_sequence = std::index_sequence<I...>;
+    template <std::size_t I> using make_index_sequence = std::make_index_sequence<I>;
+    template <typename... T> using index_sequence_for = std::index_sequence_for<T...>;
+    #else
+
+    template <std::size_t... I> struct index_sequence {
+        using type = index_sequence;
+        using value_type = std::size_t;
+        static constexpr std::size_t size() { return sizeof...(I); }
+    };
+
+    template <typename Seq1, typename Seq2> struct concat_sequence;
+
+    template <std::size_t... I1, std::size_t... I2>
+    struct concat_sequence<index_sequence<I1...>, index_sequence<I2...>>
+        : public index_sequence<I1..., (sizeof...(I1) + I2)...> {};
+
+    template <std::size_t I>
+    struct make_index_sequence_impl
+        : public concat_sequence<typename make_index_sequence_impl<I / 2>::type,
+                                typename make_index_sequence_impl<I - I / 2>::type> {};
+
+    template <> struct make_index_sequence_impl<0> : public index_sequence<> {};
+    template <> struct make_index_sequence_impl<1> : public index_sequence<0> {};
+
+    template <std::size_t I> using make_index_sequence = typename make_index_sequence_impl<I>::type;
+
+    template <typename... T> using index_sequence_for = make_index_sequence<sizeof...(T)>;
+    #endif
+
+    template <typename Visitor, typename... Ts> struct visitor_wrapper {
+        Visitor &&visitor;
+
+        template <std::size_t I>
+        using get_type_at = typename std::tuple_element<I, std::tuple<Ts...>>::type;
+
+        template <std::size_t I>
+        INTEGRAL_SWITCH_ALWAYS_INLINE constexpr decltype(visitor(type<get_type_at<I>>{}))
+        operator()(std::integral_constant<std::size_t, I>) const {
+            return visitor(type<get_type_at<I>>{});
+        }
+    };
 
     template<typename...>
     struct integral_switch_impl; // undefined
@@ -151,9 +201,11 @@ class integral_switch
     template <typename Visitor, typename U>
     using return_type_of = decltype(std::declval<Visitor>()(std::declval<U>()));
 
+public:
     template <typename Visitor>
     using return_type = return_type_of<Visitor, detail::first_t<std::integral_constant<T, v>...>>;
 
+private:
     template <typename Visitor> struct check_return_type {
         using expected_type = return_type<Visitor>;
 
@@ -183,6 +235,52 @@ public:
     {
         check_return_type<Visitor>::check();
         return detail::integral_switch_impl<std::integral_constant<T, v>...>::template dispatch_nothrow<return_type<Visitor>>(std::forward<Visitor>(visitor), std::forward<U>(value), std::forward<R>(default_ret));
+    }
+};
+
+namespace detail{
+
+template <typename> struct make_integral_switch_impl; // undefined;
+
+template <std::size_t... Is> struct make_integral_switch_impl<index_sequence<Is...>> {
+    using type = integral_switch<std::size_t, Is...>;
+};
+
+}
+
+template <typename Seq> using make_integral_switch = typename detail::make_integral_switch_impl<Seq>::type;
+
+template <typename... Ts> class variadic_switch {
+
+    using SwitchImpl = make_integral_switch<detail::index_sequence_for<Ts...>>;
+
+    template <typename Visitor> using Wrapper = detail::visitor_wrapper<Visitor, Ts...>;
+
+  public:
+    template <typename Visitor>
+    using return_type = typename SwitchImpl::template return_type<Wrapper<Visitor>>;
+
+    template <typename Visitor>
+    static INTEGRAL_SWITCH_ALWAYS_INLINE return_type<Visitor> visit(Visitor &&visitor,
+                                                                    std::size_t i) {
+        Wrapper<Visitor> wrapper{std::forward<Visitor>(visitor)};
+
+        return SwitchImpl::visit(std::forward<Wrapper<Visitor>>(wrapper), i);
+    }
+
+    template <typename Visitor, typename R>
+#ifdef USE_CPP_14_CONSTEXPR
+    static INTEGRAL_SWITCH_ALWAYS_INLINE constexpr return_type<Visitor>
+    visit_nothrow(Visitor &&visitor, std::size_t i, R &&default_ret)
+#else
+    static INTEGRAL_SWITCH_ALWAYS_INLINE return_type<Visitor>
+    visit_nothrow(Visitor &&visitor, std::size_t i, R &&default_ret)
+#endif
+    {
+        Wrapper<Visitor> wrapper{std::forward<Visitor>(visitor)};
+
+        return SwitchImpl::visit_nothrow(std::forward<Wrapper<Visitor>>(wrapper), i,
+                                         std::forward<R>(default_ret));
     }
 };
 

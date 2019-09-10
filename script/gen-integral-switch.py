@@ -47,7 +47,7 @@ if __name__ == "__main__":
         default=32,
         help="The height of the switch case statement",
     )
-    choices = ["integral_switch.tmpl", "switch_benchmark.tmpl"]
+    choices = ["integral_switch.tmpl", "benchmark_switch.tmpl"]
     cmd.add_argument(
         "--template",
         choices=choices,

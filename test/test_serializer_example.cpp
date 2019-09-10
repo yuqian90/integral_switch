@@ -1,6 +1,6 @@
 /*
- * example_test.cpp: An over-simplified example showing what integral_switch can be used for.
- * Copyright (C) 2019  Qian Yu
+ * test_serializer_example.cpp: An over-simplified example showing what integral_switch can be used
+ * for. Copyright (C) 2019  Qian Yu
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,6 +67,10 @@ std::string serialize(const Obj2 &obj) { return obj.field2; }
 
 void deserialize(const std::string &msg, Obj2 &obj) { obj.field2 = msg; }
 
+/**
+ * @brief Call say_something() on the deserialized objects.
+ *
+ */
 struct PrintVisitor {
     const std::string &msg;
 
@@ -78,7 +82,7 @@ struct PrintVisitor {
     }
 };
 
-TEST(serializer_example, serialize) {
+TEST(test_serializer_example, serialize) {
     using Msg = std::pair<TypeId, std::string>;
 
     std::vector<Msg> messages;
@@ -91,9 +95,6 @@ TEST(serializer_example, serialize) {
     messages.emplace_back(TypeId::msg0, serialize(obj0));
     messages.emplace_back(TypeId::msg1, serialize(obj1));
     messages.emplace_back(TypeId::msg2, serialize(obj2));
-
-    // Call say_something() on the deserialized objects.
-    std::vector<std::string> fields;
 
     testing::internal::CaptureStdout();
     for (const auto &msg : messages) {

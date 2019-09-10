@@ -25,9 +25,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from jinja2 import Environment, BaseLoader
 
-build_path = os.path.join("buildperf")
+build_path = os.path.join("build-clang-6.0-14")
 
-benchmark = os.path.join(build_path, "test", "switch_benchmark")
+benchmark = os.path.join(build_path, "test", "benchmark_switch")
 
 out = subprocess.check_output([benchmark, "--benchmark_format=csv"])
 stream = io.StringIO(out.decode())
@@ -43,7 +43,7 @@ for implementation, group in df.groupby("implementation"):
     plt.plot(group["number"], group["cpu_time"], "o-", label=implementation)
 plt.legend()
 
-graph = "switch_benchmark.png"
+graph = "benchmark_switch.png"
 plt.savefig(os.path.join("script", graph))
 
 intervals = df[df["number"].isin({4, 8, 16, 32, 64, 128})]

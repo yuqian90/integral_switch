@@ -1,5 +1,5 @@
 /*
- * example_test.cpp
+ * test_example.cpp
  * Copyright (C) 2019  Qian Yu
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,9 @@
 
 namespace integral_switch {
 
-using foo_switch = integral_switch<int, 0, 1, 2>;
+// example1
+
+using IntegralSwitch = integral_switch<int, 0, 1, 2>;
 
 struct Visitor {
     void operator()(std::integral_constant<int, 0>) const {
@@ -41,17 +43,49 @@ struct Visitor {
     }
 };
 
-TEST(example_test, example) {
+TEST(test_example, example1) {
     Visitor visitor;
     testing::internal::CaptureStdout();
     for (int i = 0; i <= 2; ++i) {
-        foo_switch::visit(visitor, i);
+        IntegralSwitch::visit(visitor, i);
     }
     std::string output = testing::internal::GetCapturedStdout();
 
     ASSERT_EQ(output, "0: std::integral_constant<int, 0>\n"
                       "1: std::integral_constant<int, 1>\n"
                       "2: std::integral_constant<int, 2>\n");
+}
+
+// example2
+struct Type0 {
+    void print() const { std::cout << "Type0" << '\n'; }
+};
+
+struct Type1 {
+    void print() const { std::cout << "Type1" << '\n'; }
+};
+
+struct Type2 {
+    void print() const { std::cout << "Type2" << '\n'; }
+};
+
+using VariadicSwitch = variadic_switch<Type0, Type1, Type2>;
+
+struct Printer {
+    template <typename T> void operator()(type<T>) const { T{}.print(); }
+};
+
+TEST(test_example, example2) {
+    Printer visitor;
+
+    testing::internal::CaptureStdout();
+    for (int i = 0; i <= 2; ++i) {
+        VariadicSwitch::visit(visitor, i);
+    }
+    std::string output = testing::internal::GetCapturedStdout();
+    ASSERT_EQ(output, "Type0\n"
+                      "Type1\n"
+                      "Type2\n");
 }
 
 } // namespace integral_switch

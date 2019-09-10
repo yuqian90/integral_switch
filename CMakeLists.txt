@@ -49,7 +49,7 @@ if(INTEGRAL_SWITCH_LINT)
     endif()
 
     list(APPEND LINT_COMMAND
-        ${PROJECT_SOURCE_DIR}/script/lint.py --clangtidybin ${CLANG_TIDY_BIN} --build-path ${PROJECT_BINARY_DIR} --clangformatbin ${CLANG_FORMAT_BIN} "${PROJECT_SOURCE_DIR}/include/*.h" "${PROJECT_SOURCE_DIR}/test/*.cpp")
+        ${PROJECT_SOURCE_DIR}/script/lint.py --clangtidybin ${CLANG_TIDY_BIN} --build-path ${PROJECT_BINARY_DIR} --clangformatbin ${CLANG_FORMAT_BIN} "${PROJECT_SOURCE_DIR}/test/test*.cpp")
 
     add_custom_target(
         lint
