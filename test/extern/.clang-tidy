@@ -1,0 +1,4 @@
+---
+Checks:          '-*,google-build-namespaces'
+HeaderFilterRegex: '.*.h'
+...

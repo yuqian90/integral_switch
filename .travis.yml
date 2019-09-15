@@ -31,13 +31,6 @@ jobs:
       os: linux
       addons: { apt: { packages: ["clang-6.0", "clang-tidy-6.0", "clang-format-6.0"] } }
 
-    - stage: Build
-    # ubuntu 16.04, gcc-4.8, c++11
-      env: VER=4.8 CMAKE_CXX_STANDARD=11
-      compiler: gcc
-      os: linux
-      addons: { apt: { packages: ["g++-4.8"], sources: ["ubuntu-toolchain-r-test"] } }
-
     # ubuntu 16.04, gcc-4.9, c++11
     - env: VER=4.9 CMAKE_CXX_STANDARD=11
       compiler: gcc
@@ -194,13 +187,14 @@ script:
       cd build-lint;
       cmake -DCMAKE_CXX_FLAGS="-Wall -Werror -fdiagnostics-color=always" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD} -DINTEGRAL_SWITCH_LINT=ON ..;
       make lint;
+      cmake --build .;
     else
       export BUILD_DIR="build-${CC}-${VER}-${CMAKE_CXX_STANDARD}";
       mkdir ${BUILD_DIR};
       cd ${BUILD_DIR};
-      cmake -DCMAKE_CXX_FLAGS="-Wall -Werror -fdiagnostics-color=always" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD} ..
-      cmake --build .
-      ctest --output-on-failure
+      cmake -DCMAKE_CXX_FLAGS="-Wall -Werror -fdiagnostics-color=always" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD} ..;
+      cmake --build .;
+      ctest --output-on-failure;
     fi
 
 notifications:

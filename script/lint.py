@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Does clang-format and clang-tidy checks on the given source file
+Does clang-format checks on the given source file
 
 Copyright (C) 2019  Qian Yu
 
@@ -26,7 +26,6 @@ import difflib
 
 if __name__ == "__main__":
     cmd = argparse.ArgumentParser(description=__doc__)
-    cmd.add_argument("--clangtidybin", required=True, help="Path to clang-tidy binary")
     cmd.add_argument(
         "--build-path", required=True, help="Directory containing compile_commands.json"
     )
@@ -36,15 +35,6 @@ if __name__ == "__main__":
     cmd.add_argument("files", nargs="+", help="Source files to check")
 
     args = cmd.parse_args()
-
-    # clang-tidy
-    clangtidy = [args.clangtidybin, "-quiet", "-p", args.build_path]
-
-    for fileName in args.files:
-        clangtidy.append(fileName)
-
-    print(" ".join(clangtidy))
-    subprocess.check_call(clangtidy)
 
     # clang-format
     for fileName in args.files:
